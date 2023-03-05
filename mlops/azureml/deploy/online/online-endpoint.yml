@@ -1,0 +1,4 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineEndpoint.schema.json
+name: wine-quality-online
+description: wine-quality online endpoint
+auth_mode: key
