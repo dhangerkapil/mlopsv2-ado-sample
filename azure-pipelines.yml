@@ -1,0 +1,29 @@
+
+trigger: none
+
+# Don't run against PRs
+pr: none
+
+variables:
+  - name: repository
+    value: 'mlopsv2ado'
+  - name: dockerfile
+    value: '$(Build.SourcesDirectory)/mlops/environment/Dockerfile'
+  - name: containerRegistry
+    value: 'ml-acr'
+
+stages :
+  - stage: Build
+    displayName: Build and push stage
+    jobs:  
+    - job: Build
+      displayName: Build job
+      steps:
+      - task: Docker@2
+        displayName: Build and push an image to container registry
+        inputs:
+          command: buildAndPush
+          repository: ${{ variables.repository }}
+          dockerfile: ${{ variables.dockerfile }}
+          containerRegistry: ${{ variables.containerRegistry }}
+          tags: $(Build.BuildId)
